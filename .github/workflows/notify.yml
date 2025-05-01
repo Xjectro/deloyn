@@ -1,0 +1,70 @@
+name: Notify Discord on Push
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Get Current Date and Time
+        id: get_date
+        run: echo "CURRENT_DATE=$(date -u +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+
+      - name: Get Commit Message
+        id: get_commit_message
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+
+      - name: Send Discord Embed Notification
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [
+                   {
+                     "title": "🚀 New Update",
+                     "description": "**A new update has been pushed!**",
+                     "color": 65280,
+                     "fields": [
+                       {
+                         "name": "📦・Repo",
+                         "value": "```${{ github.repository }}```",
+                         "inline": true
+                       },
+                       {
+                         "name": "👤・Pusher",
+                         "value": "```${{ github.actor }}```",
+                         "inline": true
+                       },
+                       {
+                         "name": "🌿・Branch",
+                         "value": "```${{ github.ref_name }}```",
+                         "inline": false
+                       },
+                       {
+                         "name": "🔖・Commit",
+                         "value": "```${{ env.COMMIT_MESSAGE }}```",
+                         "inline": false
+                       },
+                       {
+                         "name": "🔗・Commit URL",
+                         "value": "```${{ github.event.head_commit.url }}```",
+                         "inline": false
+                       }
+                     ],
+                     "footer": {
+                       "text": "GitHub Actions - Updated at ${{ env.CURRENT_DATE }} on Branch ${{ github.ref_name }}",
+                       "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                     }
+                   }
+                 ]
+               }' \
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
