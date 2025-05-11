@@ -128,7 +128,7 @@ export default defineConfig({
   scripts: [                  // The commands are executed sequentially after deploy. It is up to you which package manager you use (pnpm, yarn, npm...).
     "npm install",
     "npm run build"
-    ]
+  ]
 });
 ```
 
