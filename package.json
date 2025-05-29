@@ -1,10 +1,45 @@
 {
   "name": "deloyn",
-  "version": "1.0.10",
+  "version": "1.0.19",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "author": "xjectro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xjectro/deloyn.git"
+  },
+  "homepage": "https://github.com/Xjectro/deloyn#readme",
+  "bugs": {
+    "url": "https://github.com/Xjectro/deloyn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "deloyn is a simple command-line tool to publish and deploy your project via SSH and SFTP under Node.",
+  "keywords": [
+    "deloyn",
+    "deploy",
+    "ssh",
+    "sftp",
+    "cli",
+    "nodejs",
+    "command-line",
+    "deployment",
+    "automation",
+    "file-transfer",
+    "remote",
+    "server",
+    "script",
+    "utility",
+    "typescript",
+    "javascript",
+    "esbuild",
+    "esbuild-register",
+    "esbuild-plugin",
+    "esbuild-plugin-typescript"
+  ],
   "bin": {
     "deloyn": "./bin/deloyn"
   },
@@ -13,19 +48,13 @@
     "bin"
   ],
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
-  },
   "scripts": {
     "build": "tsup",
     "start": "node dist/index.cjs",
     "lint": "eslint \"src/**/*.{ts,js}\" --fix",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
     "typecheck": "tsc --noEmit",
-    "release": "npm version patch && npm run build && npm publish"
+    "release": "npm run build && npm version patch && npm run build && npm publish"
   },
   "dependencies": {
     "colors": "^1.4.0",

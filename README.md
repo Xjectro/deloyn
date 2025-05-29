@@ -115,7 +115,7 @@ import { defineConfig } from 'deloyn';
 export default defineConfig({
   serverIp: '1.2.3.4',        // Remote server IP
   username: 'ubuntu',         // SSH username
-  remotePath: '/var/www/app', // Path on remote server
+  remotePath: '/prod', // Path on remote server
   sshKey: '~/.ssh/id_rsa',    // SSH private key path
   excluded: [                 // Files or directories to exclude
     '.git',

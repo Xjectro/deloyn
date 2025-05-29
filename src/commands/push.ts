@@ -87,7 +87,7 @@ export async function push(config: DeloynConfig) {
     console.info(colors.cyan('🚀 Running publishing commands...'));
     await executeRemoteCommand(
       conn,
-      `cd ${remotePath} && ${scripts.join(
+      `cd / && cd ${remotePath} && ${scripts.join(
         ' && ',
       )} && echo "✅ Publishing complete."`,
     );
